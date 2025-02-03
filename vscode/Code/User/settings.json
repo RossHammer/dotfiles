@@ -1,0 +1,59 @@
+{
+  // Basic
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/node_modules": true,
+    "**/cdk.out": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/*.code-search": true,
+    "**/.serverless": true,
+    "**/cdk.out": true
+  },
+  "workbench.startupEditor": "newUntitledFile",
+  // Editor
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.eol": "\n",
+  "editor.formatOnSave": true,
+  "cSpell.userWords": [
+    "boto3",
+    "moto",
+    "psycopg",
+  ],
+  "diffEditor.ignoreTrimWhitespace": false,
+  // Python
+  "isort.serverEnabled": false,
+  "flake8.enabled": false,
+  "ruff.organizeImports": true,
+  "ruff.fixAll": true,
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports.ruff": "always",
+    }
+  },
+  // Javascript
+  "[typescript][typescriptreact][javascript][vue]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // Go
+  "go.lintTool": "golangci-lint",
+  "go.formatTool": "goimports",
+  "go.toolsManagement.autoUpdate": true,
+  "[templ]": {
+    "editor.defaultFormatter": "a-h.templ"
+  },
+  // JSON
+  "[json][jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  // CSS
+  "tailwindCSS.includeLanguages": {
+    "templ": "html"
+  },
+}
