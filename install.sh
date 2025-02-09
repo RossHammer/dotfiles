@@ -37,7 +37,6 @@ install stow \
   bash \
   jq
 
-stow -t "$HOME" -R common
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -45,6 +44,8 @@ fi
 if ! command -v mise &> /dev/null; then
   curl https://mise.run | sh
 fi
+
+stow -t "$HOME" -R common
 
 case "$OS" in
 Darwin)
