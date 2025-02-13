@@ -2,6 +2,8 @@
 
 set -euf -o pipefail
 
+cd "$(dirname "$0")"
+
 OS=$(uname -s)
 
 function install() {
@@ -12,6 +14,18 @@ function install() {
   else
     echo "Unsupported OS: $OS"
     exit 1
+  fi
+}
+
+function zsh_plugin() {
+  TYPE=$1
+  NAME=$2
+  REPO=$3
+  DIR="$HOME/.oh-my-zsh/custom/${TYPE}s/$NAME"
+  if [ ! -d "$DIR" ]; then
+    git clone "$REPO" "$DIR"
+  else
+    git -C "$DIR" pull
   fi
 }
 
@@ -28,6 +42,7 @@ Darwin)
 Linux)
   sudo apt-get update
   sudo snap install aws-cli --classic
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
   ;;
 esac
 
@@ -46,6 +61,9 @@ if ! command -v mise &> /dev/null; then
 fi
 
 stow -t "$HOME" -R common
+zsh_plugin plugin zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
+zsh_plugin plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
+zsh_plugin theme powerlevel10k https://github.com/romkatv/powerlevel10k.git
 
 case "$OS" in
 Darwin)
@@ -53,6 +71,8 @@ Darwin)
   ;;
 Linux)
   stow -t "$HOME/.config" -R vscode
-  chsh -s $(which zsh)
+  if [ "$SHELL" != "$(which zsh)" ]; then
+    chsh -s $(which zsh)
+  fi
   ;;
 esac
