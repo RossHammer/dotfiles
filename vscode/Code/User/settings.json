@@ -23,6 +23,8 @@
     "psycopg",
   ],
   "diffEditor.ignoreTrimWhitespace": false,
+  "editor.fontFamily": "Fira Code",
+  "editor.fontLigatures": true,
   // Python
   "isort.serverEnabled": false,
   "flake8.enabled": false,
@@ -54,6 +56,7 @@
   },
   // CSS
   "tailwindCSS.includeLanguages": {
-    "templ": "html"
+    "templ": "html",
+    "elixir": "html"
   },
 }

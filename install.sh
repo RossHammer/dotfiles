@@ -23,11 +23,14 @@ Darwin)
 
   install coreutils \
     unnaturalscrollwheels \
-    awscli
+    awscli \
+    font-fira-code
   ;;
 Linux)
   sudo apt-get update
   sudo snap install aws-cli --classic
+  sudo apt-get install -y \
+    fonts-firacode
   ;;
 esac
 
