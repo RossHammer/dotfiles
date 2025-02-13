@@ -2,6 +2,8 @@
 
 set -euf -o pipefail
 
+cd "$(dirname "$0")"
+
 OS=$(uname -s)
 
 function install() {
@@ -12,6 +14,18 @@ function install() {
   else
     echo "Unsupported OS: $OS"
     exit 1
+  fi
+}
+
+function zsh_plugin() {
+  TYPE=$1
+  NAME=$2
+  REPO=$3
+  DIR="$HOME/.oh-my-zsh/custom/${TYPE}s/$NAME"
+  if [ ! -d "$DIR" ]; then
+    git clone "$REPO" "$DIR"
+  else
+    git -C "$DIR" pull
   fi
 }
 
@@ -31,6 +45,7 @@ Linux)
   sudo snap install aws-cli --classic
   sudo apt-get install -y \
     fonts-firacode
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
   ;;
 esac
 
@@ -40,7 +55,6 @@ install stow \
   bash \
   jq
 
-stow -t "$HOME" -R common
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -49,12 +63,19 @@ if ! command -v mise &> /dev/null; then
   curl https://mise.run | sh
 fi
 
+stow -t "$HOME" -R common
+zsh_plugin plugin zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
+zsh_plugin plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
+zsh_plugin theme powerlevel10k https://github.com/romkatv/powerlevel10k.git
+
 case "$OS" in
 Darwin)
   stow -t "$HOME/Library/Application Support" -R vscode
   ;;
 Linux)
   stow -t "$HOME/.config" -R vscode
-  chsh -s $(which zsh)
+  if [ "$SHELL" != "$(which zsh)" ]; then
+    chsh -s $(which zsh)
+  fi
   ;;
 esac
