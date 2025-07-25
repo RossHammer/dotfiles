@@ -69,11 +69,7 @@ zsh_plugin plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-synta
 zsh_plugin theme powerlevel10k https://github.com/romkatv/powerlevel10k.git
 
 case "$OS" in
-Darwin)
-  stow -t "$HOME/Library/Application Support" -R vscode
-  ;;
 Linux)
-  stow -t "$HOME/.config" -R vscode
   if [ "$SHELL" != "$(which zsh)" ]; then
     chsh -s $(which zsh)
   fi
