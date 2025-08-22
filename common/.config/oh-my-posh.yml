@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+version: 3
+final_space: true
+
+blocks:
+  - type: prompt
+    alignment: left
+    segments:
+      - type: path
+        style: plain
+        foreground: blue
+        properties:
+          style: agnoster_short
+          max_depth: 2
+        template: "<b>{{ .Path }}<\\b> "
+      - type: status
+        style: plain
+        template: "\u276f"
+        foreground_templates:
+          - "{{ if .Error }}red{{ end }}"
+        properties:
+          always_enabled: true
+  - type: rprompt
+    alignment: right
+    segments:
+      - type: executiontime
+        style: plain
+        foreground: yellow
+      - type: status
+        style: plain
+        foreground: red
+        template: "{{ .String }} \u2716"
+      - type: git
+        style: plain
+        foreground: green
+        properties:
+          fetch_status: true
+          fetch_upstream_icon: true

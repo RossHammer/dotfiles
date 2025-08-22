@@ -62,11 +62,13 @@ fi
 if ! command -v mise &> /dev/null; then
   curl https://mise.run | sh
 fi
+if ! command -v oh-my-posh &> /dev/null; then
+   curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin
+fi
 
 stow -t "$HOME" -R common
 zsh_plugin plugin zsh-autosuggestions https://github.com/zsh-users/zsh-autosuggestions
 zsh_plugin plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting.git
-zsh_plugin theme powerlevel10k https://github.com/romkatv/powerlevel10k.git
 
 case "$OS" in
 Linux)
